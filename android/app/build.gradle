@@ -1,0 +1,77 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+def secureProperties = new Properties()
+def securePropertiesFile = rootProject.file("privateConfig/secure.properties")
+if (securePropertiesFile.exists()) {
+    secureProperties.load(new FileInputStream(securePropertiesFile))
+}
+
+android {
+    compileSdkVersion flutter.compileSdkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        applicationId "org.alberto97.eguasti"
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+
+    signingConfigs {
+        release {
+            if (secureProperties.getProperty('KEYSTORE_FILE') != null) {
+                keyAlias secureProperties['KEY_ALIAS']
+                keyPassword secureProperties['KEY_PASSWORD']
+                storeFile file("$rootDir/privateConfig/${secureProperties['KEYSTORE_FILE']}")
+                storePassword secureProperties['KEYSTORE_PASSWORD']
+            }
+       }
+   }
+
+    buildTypes {
+        release {
+            if (secureProperties.getProperty('KEYSTORE_FILE') != null) {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
