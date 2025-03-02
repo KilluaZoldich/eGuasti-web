@@ -54,7 +54,8 @@ class AboutCubit extends Cubit<AboutState> {
   }
 
   void openRepository() {
-    final uri = Uri.parse("https://github.com/Alberto97/eGuasti");
+    // Updated to point to your GitHub repository
+    final uri = Uri.parse("https://github.com/metinsenturk/eGuasti");
     launchUrl(uri, mode: LaunchMode.externalApplication);
   }
 }

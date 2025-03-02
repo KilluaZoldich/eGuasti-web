@@ -109,7 +109,7 @@ class _AboutPage extends StatelessWidget {
     return ListTile(
       leading: const Text(""),
       title: Text(AppLocalizations.of(context).aboutAuthorTitle),
-      subtitle: const Text("Alberto Pedron"),
+      subtitle: const Text("YourUsername\nBased on original work by Alberto Pedron"),
     );
   }
 }
