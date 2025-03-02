@@ -1,4 +1,0 @@
-* Added support for Android 13
-* Added monochromatic icon for Android 13
-* Improved UI for the outage details
-* Major refactoring and dependencies update

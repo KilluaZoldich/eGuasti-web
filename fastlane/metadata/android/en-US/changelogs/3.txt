@@ -1,2 +1,0 @@
-* Added support for Android 14
-* Dependencies update
