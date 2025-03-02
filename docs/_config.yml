@@ -1,0 +1,9 @@
+# Jekyll configuration for GitHub Pages
+theme: jekyll-theme-cayman
+title: eGuasti
+description: Track power outages in Italy
+baseurl: "/eGuasti-web"
+url: ""
+
+# Build settings
+markdown: kramdown
